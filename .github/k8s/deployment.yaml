@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: deployment
+kind: Deployment
 metadata:
   labels:
     app: wisecow
@@ -8,7 +8,7 @@ spec:
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxunavailable: 1
+      maxUnavailable: 1
       maxSurge: 1
   selector:
     matchLabels:
@@ -27,17 +27,15 @@ spec:
           resources:
             limits:
               cpu: 1000m
-            request:
+            requests:
               cpu: 500m
-          livenessProbe:
-            httpGet:
-              path: /
-              port: 4499
-            initialDelaySeconds: 8
-            periodSeconds: 8
-          readinessProbe:
-            httpGet:
-              path: /
-              port: 4499
-            initialDelaySeconds: 5
-            periodSeconds: 8
+            livenessProbe:
+              tcpSocket:
+                port: 4499
+              initialDelaySeconds: 8
+              periodSeconds: 8
+            readinessProbe:
+              tcpSocket:
+                port: 4499
+              initialDelaySeconds: 5
+              periodSeconds: 8
