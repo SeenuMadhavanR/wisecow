@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: deployment
+metadata:
+  labels:
+    app: wisecow
+  name: wisecow
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxunavailable: 1
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: wisecow
+    
+  template:
+    metadata:
+      labels:
+        app: wisecow
+    spec:
+      containers:
+        - image: seenumadhavanr/wisecow
+          name: wisecow
+          ports:
+            - containerPort: 4499
+          resources:
+            limits:
+              cpu: 1000m
+            request:
+              cpu: 500m
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 4499
+            initialDelaySeconds: 8
+            periodSeconds: 8
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 4499
+            initialDelaySeconds: 5
+            periodSeconds: 8
