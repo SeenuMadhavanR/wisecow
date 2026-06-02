@@ -29,13 +29,13 @@ spec:
               cpu: 1000m
             requests:
               cpu: 500m
-            livenessProbe:
-              tcpSocket:
-                port: 4499
-              initialDelaySeconds: 8
-              periodSeconds: 8
-            readinessProbe:
-              tcpSocket:
-                port: 4499
-              initialDelaySeconds: 5
-              periodSeconds: 8
+          livenessProbe:
+            tcpSocket:
+              port: 4499
+            initialDelaySeconds: 8
+            periodSeconds: 8
+          readinessProbe:
+            tcpSocket:
+              port: 4499
+            initialDelaySeconds: 5
+            periodSeconds: 8
